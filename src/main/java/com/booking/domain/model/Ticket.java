@@ -9,9 +9,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tickets")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Ticket {
 
     @Id
@@ -36,49 +43,8 @@ public class Ticket {
     @Column(name = "issued_at", nullable = false)
     private Instant issuedAt;
 
-    protected Ticket() {
-    }
-
-    private Ticket(UUID id, UUID reservationId, UUID sessionId, UUID userId, TicketStatus status, String qrCode, Instant issuedAt) {
-        this.id = id;
-        this.reservationId = reservationId;
-        this.sessionId = sessionId;
-        this.userId = userId;
-        this.status = status;
-        this.qrCode = qrCode;
-        this.issuedAt = issuedAt;
-    }
-
     public static Ticket issue(UUID id, UUID reservationId, UUID sessionId, UUID userId, String qrCode, Instant issuedAt) {
         return new Ticket(id, reservationId, sessionId, userId, TicketStatus.VALID, qrCode, issuedAt);
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getReservationId() {
-        return reservationId;
-    }
-
-    public UUID getSessionId() {
-        return sessionId;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public TicketStatus getStatus() {
-        return status;
-    }
-
-    public String getQrCode() {
-        return qrCode;
-    }
-
-    public Instant getIssuedAt() {
-        return issuedAt;
     }
 
     public void use() {

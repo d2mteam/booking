@@ -10,9 +10,16 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "sessions")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Session {
 
     @Id
@@ -34,39 +41,7 @@ public class Session {
     @Column(name = "base_price", nullable = false)
     private BigDecimal basePrice;
 
-    protected Session() {
-    }
-
-    public Session(UUID id, Event event, Instant startsAt, Instant endsAt, boolean open, BigDecimal basePrice) {
-        this.id = id;
-        this.event = event;
-        this.startsAt = startsAt;
-        this.endsAt = endsAt;
-        this.open = open;
-        this.basePrice = basePrice;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public Instant getStartsAt() {
-        return startsAt;
-    }
-
-    public Instant getEndsAt() {
-        return endsAt;
-    }
-
     public boolean isOpen() {
         return open;
-    }
-
-    public BigDecimal getBasePrice() {
-        return basePrice;
     }
 }

@@ -41,39 +41,6 @@ public class Seat {
     @Column(name = "hold_expires_at")
     private Instant holdExpiresAt;
 
-    protected Seat() {
-    }
-
-    public Seat(UUID id, Session session, String seatNo, SeatStatus status) {
-        this.id = id;
-        this.session = session;
-        this.seatNo = seatNo;
-        this.status = status;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public String getSeatNo() {
-        return seatNo;
-    }
-
-    public SeatStatus getStatus() {
-        return status;
-    }
-
-    public UUID getHoldId() {
-        return holdId;
-    }
-
-    public Instant getHoldExpiresAt() {
-        return holdExpiresAt;
-    }
 
     public void hold(UUID holdId, Instant expiresAt) {
         if (status != SeatStatus.AVAILABLE) {

@@ -10,9 +10,16 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "payments")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Payment {
 
     @Id
@@ -37,49 +44,8 @@ public class Payment {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected Payment() {
-    }
-
-    private Payment(UUID id, UUID reservationId, PaymentStatus status, BigDecimal amount, String currency, String provider, Instant createdAt) {
-        this.id = id;
-        this.reservationId = reservationId;
-        this.status = status;
-        this.amount = amount;
-        this.currency = currency;
-        this.provider = provider;
-        this.createdAt = createdAt;
-    }
-
     public static Payment pending(UUID id, UUID reservationId, BigDecimal amount, String currency, String provider, Instant createdAt) {
         return new Payment(id, reservationId, PaymentStatus.PENDING, amount, currency, provider, createdAt);
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getReservationId() {
-        return reservationId;
-    }
-
-    public PaymentStatus getStatus() {
-        return status;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
     }
 
     public void succeed() {

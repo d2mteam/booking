@@ -12,9 +12,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "reservations")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Reservation {
 
     @Id
@@ -37,44 +44,8 @@ public class Reservation {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected Reservation() {
-    }
-
-    private Reservation(UUID id, UUID userId, Session session, ReservationStatus status, Instant expiresAt, Instant createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.session = session;
-        this.status = status;
-        this.expiresAt = expiresAt;
-        this.createdAt = createdAt;
-    }
-
     public static Reservation active(UUID id, UUID userId, Session session, Instant expiresAt, Instant createdAt) {
         return new Reservation(id, userId, session, ReservationStatus.ACTIVE, expiresAt, createdAt);
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public Instant getExpiresAt() {
-        return expiresAt;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
     }
 
     public boolean isExpired(Instant now) {
