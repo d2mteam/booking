@@ -5,19 +5,7 @@ import java.util.UUID;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
-public class HoldExpiry implements Delayed {
-
-    private final UUID reservationId;
-    private final Instant expiresAt;
-
-    public HoldExpiry(UUID reservationId, Instant expiresAt) {
-        this.reservationId = reservationId;
-        this.expiresAt = expiresAt;
-    }
-
-    public UUID getReservationId() {
-        return reservationId;
-    }
+public record HoldExpiry(UUID reservationId, Instant expiresAt) implements Delayed {
 
     @Override
     public long getDelay(TimeUnit unit) {

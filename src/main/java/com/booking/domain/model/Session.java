@@ -10,14 +10,12 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
+import lombok.*;
+
+@Data
 @Entity
 @Table(name = "sessions")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Session {
@@ -40,8 +38,4 @@ public class Session {
 
     @Column(name = "base_price", nullable = false)
     private BigDecimal basePrice;
-
-    public boolean isOpen() {
-        return open;
-    }
 }

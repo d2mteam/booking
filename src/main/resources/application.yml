@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: booking
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booking
+    username: admin
+    password: admin123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+
+logging:
+  level:
+    org:
+      hibernate:
+        tool:
+          hbm2ddl: DEBUG
+        SQL: DEBUG
+        orm:
+          connections: DEBUG
+    com.booking: DEBUG

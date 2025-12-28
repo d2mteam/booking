@@ -8,24 +8,27 @@ import com.booking.domain.command.ReleaseHoldReason;
 import com.booking.domain.command.ReserveSeatCommand;
 import com.booking.domain.exception.BookingException;
 import com.booking.domain.model.Payment;
-import com.booking.domain.model.PaymentStatus;
+import com.booking.domain.model.enums.PaymentStatus;
 import com.booking.domain.model.Reservation;
-import com.booking.domain.model.ReservationStatus;
+import com.booking.domain.model.enums.ReservationStatus;
 import com.booking.domain.model.Seat;
-import com.booking.domain.model.SeatStatus;
+import com.booking.domain.model.enums.SeatStatus;
 import com.booking.domain.model.Session;
 import com.booking.domain.model.Ticket;
-import com.booking.domain.model.TicketStatus;
+import com.booking.domain.model.enums.TicketStatus;
 import com.booking.infrastructure.HoldExpiryScheduler;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @Service
+@RequiredArgsConstructor
 public class BookingService {
 
     private final SessionRepository sessionRepository;
@@ -34,22 +37,6 @@ public class BookingService {
     private final PaymentRepository paymentRepository;
     private final TicketRepository ticketRepository;
     private final HoldExpiryScheduler holdExpiryScheduler;
-
-    public BookingService(
-            SessionRepository sessionRepository,
-            SeatRepository seatRepository,
-            ReservationRepository reservationRepository,
-            PaymentRepository paymentRepository,
-            TicketRepository ticketRepository,
-            HoldExpiryScheduler holdExpiryScheduler
-    ) {
-        this.sessionRepository = sessionRepository;
-        this.seatRepository = seatRepository;
-        this.reservationRepository = reservationRepository;
-        this.paymentRepository = paymentRepository;
-        this.ticketRepository = ticketRepository;
-        this.holdExpiryScheduler = holdExpiryScheduler;
-    }
 
     @Transactional
     public Reservation reserveSeats(ReserveSeatCommand command) {

@@ -1,6 +1,7 @@
 package com.booking.domain.model;
 
 import com.booking.domain.exception.BookingException;
+import com.booking.domain.model.enums.SeatStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,9 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Data;
+
 import java.time.Instant;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(
         name = "seats",

@@ -1,4 +1,4 @@
-package com.booking.domain.model;
+package com.booking.domain.model.enums;
 
 public enum ReservationStatus {
     CREATED,
